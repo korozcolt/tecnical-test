@@ -28,11 +28,11 @@
     "docker:build": "docker build -t tecnical-test .",
     "docker:run": "docker run -p 3000:3000 -d tecnical-test",
     "premigrate": "npm run build",
-    "migrate": "node ./dist/migrate",
+    "migrate": "node -r dotenv/config ./dist/migrate",
     "preopenapi-spec": "npm run build",
     "openapi-spec": "node ./dist/openapi-spec",
     "prestart": "npm run rebuild",
-    "start": "node -r source-map-support/register .",
+    "start": "node -r dotenv/config -r source-map-support/register .",
     "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
     "rebuild": "npm run clean && npm run build"
   },
@@ -40,7 +40,7 @@
     "type": "git",
     "url": ""
   },
-  "author": "Kristian Orozco <korozco@lean-tech.io>",
+  "author": "Kristian Orozco <ing.korozco@gmail.com>",
   "license": "",
   "files": [
     "README.md",
@@ -49,11 +49,14 @@
     "!*/__tests__"
   ],
   "dependencies": {
+    "@loopback/authentication": "^9.0.5",
+    "@loopback/authentication-jwt": "^0.12.5",
     "@loopback/boot": "^5.0.5",
     "@loopback/core": "^4.0.5",
     "@loopback/repository": "^5.1.0",
     "@loopback/rest": "^12.0.5",
     "@loopback/rest-explorer": "^5.0.5",
+    "@loopback/security": "^0.8.5",
     "@loopback/service-proxy": "^5.0.5",
     "dotenv": "^16.0.3",
     "loopback-connector-postgresql": "^5.5.2",

@@ -9,6 +9,10 @@ const config = {
   user: process.env.DB_USER ?? 'postgres',
   password: process.env.DB_PASSWORD ?? 'postgres',
   database: process.env.DB_NAME ?? 'postgres',
+  min: 5,
+  max: 200,
+  idleTimeoutMillis: 60000,
+  ssl: false,
 };
 
 // Observe application's life cycle to disconnect the datasource when
