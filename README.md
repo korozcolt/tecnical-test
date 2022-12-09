@@ -1,4 +1,3 @@
-
 # Project technical-test
 
 technical test for backend developer
@@ -22,6 +21,7 @@ Enter an empty property name when done
 
 Model User was/were created in src/models
 ```
+
 ```
 $ lb4 model UserCredentials
 ? Please select the model base class Entity (A persisted model with an ID)
@@ -37,6 +37,7 @@ Enter an empty property name when done
 
 Model UserCredentials was/were created in src/models
 ```
+
 2. Replace models/user.model.ts & models/user-credentials.model.ts by user.model.ts & user-credentials.model.ts
 
 Create repositories for User and UserCredentials
@@ -55,7 +56,9 @@ $ lb4 repository
 
 Repositories UserCredentialsRepository, UserRepository was/were created in src/repositories
 ```
+
 Run
+
 ```
 npm run build
 ```
@@ -63,6 +66,7 @@ npm run build
 Modify datasources/postgresql.datasource.ts to meet the proper PostgreSQL configurations then create a new PostgreSQL database depending on your configurations.
 
 Run
+
 ```
 npm run migrate
 ```
@@ -75,32 +79,31 @@ repositories/user.repository.ts
 repositories/user-credentials.repository.ts
 
 Modify models/index.ts by deleting the following lines:
+
 ```
 export * from './user.model';
 export * from './user-credentials.model';
 ```
+
 Modify repositories/index.ts by deleting the following lines:
+
 ```
 export * from './user-credentials.repository';
 export * from './user.repository';
 ```
+
 NOTE: I suggested a new feature request for a better JWT integration
 
-
 ## 🛠 Skills
-Javascript, NodeJS, NestJS, React, PHP, Laravel, HTML, CSS...
 
+Javascript, NodeJS, NestJS, React, PHP, Laravel, HTML, CSS...
 
 ## Authors
 
 - [@korozcolt](https://www.github.com/korozcolt)
 
-
 ## Badges
-
-Add badges from somewhere like: [shields.io](https://shields.io/)
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
 [![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
-
