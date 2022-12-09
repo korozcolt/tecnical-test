@@ -44,7 +44,7 @@ Enter an empty property name when done
 Model UserCredentials was/were created in src/models
 ```
 
-2. Replace `models/user.model.ts` & `models/user-credentials.model.ts` by user.model.ts[https://github.com/loopbackio/loopback-next/blob/master/extensions/authentication-jwt/src/models/user.model.ts] & user-credentials.model.ts[https://github.com/loopbackio/loopback-next/blob/master/extensions/authentication-jwt/src/models/user-credentials.model.ts]
+2. Replace `models/user.model.ts` & `models/user-credentials.model.ts` by [user.model.ts](https://github.com/loopbackio/loopback-next/blob/master/extensions/authentication-jwt/src/models/user.model.ts) & [user-credentials.model.ts](https://github.com/loopbackio/loopback-next/blob/master/extensions/authentication-jwt/src/models/user-credentials.model.ts)
 
 Create repositories for User and UserCredentials
 
