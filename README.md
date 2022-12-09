@@ -86,3 +86,21 @@ export * from './user.repository';
 ```
 NOTE: I suggested a new feature request for a better JWT integration
 
+
+## 🛠 Skills
+Javascript, NodeJS, NestJS, React, PHP, Laravel, HTML, CSS...
+
+
+## Authors
+
+- [@korozcolt](https://www.github.com/korozcolt)
+
+
+## Badges
+
+Add badges from somewhere like: [shields.io](https://shields.io/)
+
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
+[![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
+
