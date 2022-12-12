@@ -65,6 +65,22 @@ export class ProductController {
     return this.productService.find(filter);
   }
 
+  @get('/products/all')
+  @response(200, {
+    description: 'Array of Product model instances',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'array',
+          items: getModelSchemaRef(Product, {includeRelations: true}),
+        },
+      },
+    },
+  })
+  async findAll(): Promise<Product[]> {
+    return this.productService.findAll();
+  }
+
   @patch('/products')
   @response(200, {
     description: 'Product PATCH success count',
@@ -84,6 +100,24 @@ export class ProductController {
     return this.productService.updateAll(product, where);
   }
 
+  @get('/active-products')
+  @response(200, {
+    description: 'Array of Product model instances',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'array',
+          items: getModelSchemaRef(Product, {includeRelations: true}),
+        },
+      },
+    },
+  })
+  async findProductsByCategoryActive(
+    @param.filter(Product) filter?: Filter<Product>,
+  ): Promise<Product[]> {
+    return this.productService.findProductsByCategoryActive(filter);
+  }
+
   @get('/products/{id}')
   @response(200, {
     description: 'Product model instance',
@@ -99,6 +133,36 @@ export class ProductController {
     filter?: FilterExcludingWhere<Product>,
   ): Promise<Product> {
     return this.productService.findById(id, filter);
+  }
+
+  @get('/products/category/{id}')
+  @response(200, {
+    description: 'Product model instance',
+    content: {
+      'application/json': {
+        schema: getModelSchemaRef(Product, {includeRelations: true}),
+      },
+    },
+  })
+  async findProductsByCategory(
+    @param.path.string('id') id: string,
+  ): Promise<Product[]> {
+    return this.productService.findProductsByCategory(id);
+  }
+
+  @get('/products/company/{id}')
+  @response(200, {
+    description: 'Product model instance',
+    content: {
+      'application/json': {
+        schema: getModelSchemaRef(Product, {includeRelations: true}),
+      },
+    },
+  })
+  async findProductsByCompany(
+    @param.path.string('id') id: string,
+  ): Promise<Product[]> {
+    return this.productService.findProductsByCompany(id);
   }
 
   @patch('/products/{id}')

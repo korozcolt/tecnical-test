@@ -137,4 +137,22 @@ export class CategoryController {
   async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.categoryService.deleteById(id);
   }
+
+  @patch('/categories/{id}/active')
+  @response(204, {
+    description: 'Category PATCH success',
+  })
+  async activeCategory(
+    @param.path.string('id') id: string,
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(Category, {partial: true}),
+        },
+      },
+    })
+    active: boolean,
+  ): Promise<void> {
+    await this.categoryService.updateActive(id, active);
+  }
 }

@@ -17,6 +17,23 @@ export class ProductServiceProvider implements Provider<ProductService> {
   }
 
   async create(product: Product): Promise<Product> {
+    const productExists = await this.productRepository.findOne({
+      where: {
+        or: [
+          {
+            code: product.code,
+          },
+          {
+            name: product.name,
+          },
+        ],
+      },
+    });
+
+    if (productExists) {
+      throw new Error('Product already exists');
+    }
+
     const newProduct = await this.productRepository.create(product);
 
     return newProduct;
@@ -30,6 +47,11 @@ export class ProductServiceProvider implements Provider<ProductService> {
             include: [
               {
                 relation: 'category',
+                scope: {
+                  where: {
+                    isActive: true,
+                  },
+                },
               },
               {
                 relation: 'company',
@@ -37,6 +59,21 @@ export class ProductServiceProvider implements Provider<ProductService> {
             ],
           },
     );
+
+    return products;
+  }
+
+  async findAll(): Promise<Product[]> {
+    const products = await this.productRepository.find({
+      include: [
+        {
+          relation: 'category',
+        },
+        {
+          relation: 'company',
+        },
+      ],
+    });
 
     return products;
   }
@@ -87,7 +124,7 @@ export class ProductServiceProvider implements Provider<ProductService> {
     return product;
   }
 
-  async findByCategory(categoryId: string): Promise<Product[]> {
+  async findProductsByCategory(categoryId: string): Promise<Product[]> {
     const products = await this.productRepository.find({
       where: {
         categoryId: categoryId,
@@ -95,6 +132,11 @@ export class ProductServiceProvider implements Provider<ProductService> {
       include: [
         {
           relation: 'category',
+          scope: {
+            where: {
+              isActive: true,
+            },
+          },
         },
         {
           relation: 'company',
@@ -105,7 +147,7 @@ export class ProductServiceProvider implements Provider<ProductService> {
     return products;
   }
 
-  async findByCompany(companyId: string): Promise<Product[]> {
+  async findProductsByCompany(companyId: string): Promise<Product[]> {
     const products = await this.productRepository.find({
       where: {
         companyId: companyId,
@@ -113,6 +155,11 @@ export class ProductServiceProvider implements Provider<ProductService> {
       include: [
         {
           relation: 'category',
+          scope: {
+            where: {
+              isActive: true,
+            },
+          },
         },
         {
           relation: 'company',
