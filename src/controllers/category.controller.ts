@@ -1,29 +1,29 @@
+import {service} from '@loopback/core';
 import {
   Count,
   CountSchema,
   Filter,
   FilterExcludingWhere,
-  repository,
   Where,
 } from '@loopback/repository';
 import {
-  post,
-  param,
+  del,
   get,
   getModelSchemaRef,
+  param,
   patch,
+  post,
   put,
-  del,
   requestBody,
   response,
 } from '@loopback/rest';
 import {Category} from '../models';
-import {CategoryRepository} from '../repositories';
+import {CategoryServiceProvider} from '../services';
 
 export class CategoryController {
   constructor(
-    @repository(CategoryRepository)
-    public categoryRepository : CategoryRepository,
+    @service(CategoryServiceProvider)
+    public categoryService: CategoryServiceProvider,
   ) {}
 
   @post('/categories')
@@ -44,18 +44,7 @@ export class CategoryController {
     })
     category: Omit<Category, 'id'>,
   ): Promise<Category> {
-    return this.categoryRepository.create(category);
-  }
-
-  @get('/categories/count')
-  @response(200, {
-    description: 'Category model count',
-    content: {'application/json': {schema: CountSchema}},
-  })
-  async count(
-    @param.where(Category) where?: Where<Category>,
-  ): Promise<Count> {
-    return this.categoryRepository.count(where);
+    return this.categoryService.create(category);
   }
 
   @get('/categories')
@@ -73,7 +62,7 @@ export class CategoryController {
   async find(
     @param.filter(Category) filter?: Filter<Category>,
   ): Promise<Category[]> {
-    return this.categoryRepository.find(filter);
+    return this.categoryService.find(filter);
   }
 
   @patch('/categories')
@@ -92,7 +81,7 @@ export class CategoryController {
     category: Category,
     @param.where(Category) where?: Where<Category>,
   ): Promise<Count> {
-    return this.categoryRepository.updateAll(category, where);
+    return this.categoryService.updateAll(category, where);
   }
 
   @get('/categories/{id}')
@@ -106,9 +95,10 @@ export class CategoryController {
   })
   async findById(
     @param.path.string('id') id: string,
-    @param.filter(Category, {exclude: 'where'}) filter?: FilterExcludingWhere<Category>
+    @param.filter(Category, {exclude: 'where'})
+    filter?: FilterExcludingWhere<Category>,
   ): Promise<Category> {
-    return this.categoryRepository.findById(id, filter);
+    return this.categoryService.findById(id, filter);
   }
 
   @patch('/categories/{id}')
@@ -126,7 +116,7 @@ export class CategoryController {
     })
     category: Category,
   ): Promise<void> {
-    await this.categoryRepository.updateById(id, category);
+    await this.categoryService.updateById(id, category);
   }
 
   @put('/categories/{id}')
@@ -137,7 +127,7 @@ export class CategoryController {
     @param.path.string('id') id: string,
     @requestBody() category: Category,
   ): Promise<void> {
-    await this.categoryRepository.replaceById(id, category);
+    await this.categoryService.replaceById(id, category);
   }
 
   @del('/categories/{id}')
@@ -145,6 +135,6 @@ export class CategoryController {
     description: 'Category DELETE success',
   })
   async deleteById(@param.path.string('id') id: string): Promise<void> {
-    await this.categoryRepository.deleteById(id);
+    await this.categoryService.deleteById(id);
   }
 }

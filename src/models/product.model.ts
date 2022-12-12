@@ -16,34 +16,51 @@ export class Product extends Entity {
   @property({
     type: 'string',
     required: true,
+    jsonSchema: {
+      pattern: '^[a-zA-Z0-9]{4,10}$',
+      minimum: 4,
+      maximum: 10,
+    },
   })
   code: string;
 
   @property({
     type: 'string',
     required: true,
+    jsonSchema: {
+      pattern: '^[a-zA-Z0-9]{4,10}$',
+      minimum: 4,
+    },
   })
   name: string;
 
   @property({
     type: 'string',
+    required: true,
   })
-  description?: string;
+  description: string;
 
   @property({
     type: 'string',
+    required: true,
   })
-  brand?: string;
+  brand: string;
 
   @property({
     type: 'number',
     required: true,
+    jsonSchema: {
+      pattern: '^[0-9]*$',
+    },
   })
   quantity: number;
 
   @property({
     type: 'number',
     required: true,
+    jsonSchema: {
+      pattern: '^[0-9]*$',
+    },
   })
   price: number;
 

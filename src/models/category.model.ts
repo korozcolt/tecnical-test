@@ -15,17 +15,27 @@ export class Category extends Entity {
   @property({
     type: 'string',
     required: true,
+    jsonSchema: {
+      pattern: '^[a-zA-Z0-9]{4,10}$',
+      minimum: 4,
+      maximum: 10,
+    },
   })
   code: string;
 
   @property({
     type: 'string',
     required: true,
+    jsonSchema: {
+      pattern: '^[a-zA-Z0-9]{4,10}$',
+      minimum: 2,
+    },
   })
   name: string;
 
   @property({
     type: 'string',
+    required: true,
   })
   description?: string;
 

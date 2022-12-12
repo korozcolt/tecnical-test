@@ -20,6 +20,7 @@ export class Company extends Entity {
 
   @property({
     type: 'string',
+    required: true,
   })
   address?: string;
 

@@ -1,9 +1,9 @@
+import {service} from '@loopback/core';
 import {
   Count,
   CountSchema,
   Filter,
   FilterExcludingWhere,
-  repository,
   Where,
 } from '@loopback/repository';
 import {
@@ -18,12 +18,12 @@ import {
   response,
 } from '@loopback/rest';
 import {Company} from '../models';
-import {CompanyRepository} from '../repositories';
+import {CompanyServiceProvider} from '../services';
 
 export class CompanyController {
   constructor(
-    @repository(CompanyRepository)
-    public companyRepository: CompanyRepository,
+    @service(CompanyServiceProvider)
+    public companyService: CompanyServiceProvider,
   ) {}
 
   @post('/companies')
@@ -44,16 +44,7 @@ export class CompanyController {
     })
     company: Omit<Company, 'id'>,
   ): Promise<Company> {
-    return this.companyRepository.create(company);
-  }
-
-  @get('/companies/count')
-  @response(200, {
-    description: 'Company model count',
-    content: {'application/json': {schema: CountSchema}},
-  })
-  async count(@param.where(Company) where?: Where<Company>): Promise<Count> {
-    return this.companyRepository.count(where);
+    return this.companyService.create(company);
   }
 
   @get('/companies')
@@ -71,7 +62,7 @@ export class CompanyController {
   async find(
     @param.filter(Company) filter?: Filter<Company>,
   ): Promise<Company[]> {
-    return this.companyRepository.find(filter);
+    return this.companyService.find(filter);
   }
 
   @patch('/companies')
@@ -90,7 +81,7 @@ export class CompanyController {
     company: Company,
     @param.where(Company) where?: Where<Company>,
   ): Promise<Count> {
-    return this.companyRepository.updateAll(company, where);
+    return this.companyService.updateAll(company, where);
   }
 
   @get('/companies/{id}')
@@ -107,7 +98,7 @@ export class CompanyController {
     @param.filter(Company, {exclude: 'where'})
     filter?: FilterExcludingWhere<Company>,
   ): Promise<Company> {
-    return this.companyRepository.findById(id, filter);
+    return this.companyService.findById(id, filter);
   }
 
   @patch('/companies/{id}')
@@ -125,7 +116,7 @@ export class CompanyController {
     })
     company: Company,
   ): Promise<void> {
-    await this.companyRepository.updateById(id, company);
+    await this.companyService.updateById(id, company);
   }
 
   @put('/companies/{id}')
@@ -136,7 +127,7 @@ export class CompanyController {
     @param.path.string('id') id: string,
     @requestBody() company: Company,
   ): Promise<void> {
-    await this.companyRepository.replaceById(id, company);
+    await this.companyService.replaceById(id, company);
   }
 
   @del('/companies/{id}')
@@ -144,6 +135,6 @@ export class CompanyController {
     description: 'Company DELETE success',
   })
   async deleteById(@param.path.string('id') id: string): Promise<void> {
-    await this.companyRepository.deleteById(id);
+    await this.companyService.deleteById(id);
   }
 }
