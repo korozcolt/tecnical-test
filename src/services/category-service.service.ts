@@ -1,5 +1,5 @@
 import {BindingScope, injectable, Provider} from '@loopback/core';
-import {Count, Filter, repository, Where} from '@loopback/repository';
+import {Filter, repository} from '@loopback/repository';
 import {Category} from '../models';
 import {CategoryRepository} from '../repositories';
 
@@ -22,7 +22,6 @@ export class CategoryServiceProvider implements Provider<CategoryService> {
     return this;
   }
 
-  //create a new category and check if code and name already exists
   async create(category: Category): Promise<Category> {
     const categoryExists = await this.categoryRepository.findOne({
       where: {
@@ -96,15 +95,6 @@ export class CategoryServiceProvider implements Provider<CategoryService> {
     );
 
     return categories;
-  }
-
-  async updateAll(category: Category, where?: Where<Category>): Promise<Count> {
-    const updatedProducts = await this.categoryRepository.updateAll(
-      category,
-      where,
-    );
-
-    return updatedProducts;
   }
 
   async updateById(id: string, category: Category): Promise<void> {

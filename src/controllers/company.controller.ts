@@ -1,11 +1,5 @@
 import {service} from '@loopback/core';
-import {
-  Count,
-  CountSchema,
-  Filter,
-  FilterExcludingWhere,
-  Where,
-} from '@loopback/repository';
+import {Filter, FilterExcludingWhere} from '@loopback/repository';
 import {
   del,
   get,
@@ -63,25 +57,6 @@ export class CompanyController {
     @param.filter(Company) filter?: Filter<Company>,
   ): Promise<Company[]> {
     return this.companyService.find(filter);
-  }
-
-  @patch('/companies')
-  @response(200, {
-    description: 'Company PATCH success count',
-    content: {'application/json': {schema: CountSchema}},
-  })
-  async updateAll(
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(Company, {partial: true}),
-        },
-      },
-    })
-    company: Company,
-    @param.where(Company) where?: Where<Company>,
-  ): Promise<Count> {
-    return this.companyService.updateAll(company, where);
   }
 
   @get('/companies/{id}')

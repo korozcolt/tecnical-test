@@ -1,5 +1,5 @@
 import {BindingScope, injectable, Provider} from '@loopback/core';
-import {Count, Filter, repository, Where} from '@loopback/repository';
+import {Filter, repository} from '@loopback/repository';
 import {Company} from '../models';
 import {CompanyRepository} from '../repositories';
 
@@ -69,12 +69,6 @@ export class CompanyServiceProvider implements Provider<CompanyService> {
     );
 
     return company;
-  }
-
-  async updateAll(company: Company, where?: Where<Company>): Promise<Count> {
-    const count = await this.companyRepository.updateAll(company, where);
-
-    return count;
   }
 
   async updateById(id: string, company: Company): Promise<void> {
